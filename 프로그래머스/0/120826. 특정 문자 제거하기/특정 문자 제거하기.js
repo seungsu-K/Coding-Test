@@ -8,3 +8,6 @@ function solution(my_string, letter) {
     var answer = array.join('')
     return answer;
 }
+
+// return my_string.replaceAll(letter, "");
+// 변수 letter를 찾아서 공백으로 변환하기
