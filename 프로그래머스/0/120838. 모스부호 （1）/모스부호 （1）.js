@@ -8,12 +8,10 @@ function solution(letter) {
 }
     
     var answer = '';
-    let key = Object.keys(morse);
-    let value = Object.values(morse);
     let letterArray = letter.split(' ')
     
     for(let i = 0; i<letterArray.length; i++) {
-        answer += value[key.indexOf(letterArray[i])]
+        answer += morse[letterArray[i]]
     }
     
     
