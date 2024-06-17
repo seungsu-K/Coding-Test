@@ -7,15 +7,15 @@ function solution(letter) {
     '-.--':'y','--..':'z'
 }
     
-    var answer = [];
+    var answer = '';
     let key = Object.keys(morse);
     let value = Object.values(morse);
     let letterArray = letter.split(' ')
     
     for(let i = 0; i<letterArray.length; i++) {
-        answer.push(value[key.indexOf(letterArray[i])])
+        answer += value[key.indexOf(letterArray[i])]
     }
     
     
-    return answer.join('');
+    return answer;
 }
