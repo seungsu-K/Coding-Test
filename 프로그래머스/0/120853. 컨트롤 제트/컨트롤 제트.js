@@ -8,6 +8,5 @@ function solution(s) {
         
         answer += +item
     })
-    console.log(arr)
     return answer;
 }
