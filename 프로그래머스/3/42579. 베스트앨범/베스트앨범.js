@@ -5,23 +5,19 @@ function solution(genres, plays) {
     
     genres.forEach((item, i) => {
         let a = hash.get(item)
-        !a ? hash.set(item, [[i, plays[i]]]) : hash.set(item, [...a, [i, plays[i]]].sort((a,b) => b[1] - a[1]))
+        
+        !a ? hash.set(item, {index: [i], value: [plays[i]], total: plays[i]}) : hash.set(item, {index: [...a.index, i], value: [...a.value, plays[i]], total: a.total + plays[i]})
     })
     
     hash.forEach((value, key) => {
-        let count = 0
-        value.forEach((item) => count += item[1])
-        
-        value.length === 1 ? arr.push({key: key, count: count, index: [value[0][0]]}) :
-        arr.push({key: key, count: count, index: [value[0][0], value?.[1][0]]})
-        
+        arr.push(value)
     })
     
-    console.log(hash)
-    console.log(arr)
-    
-    arr.sort((a,b) => b.count - a.count).forEach((item) => {
-        item.index.length === 1 ? answer.push(item.index[0]) : answer.push(item.index[0], item.index[1])})
+    arr.sort((a,b) => b.total - a.total).forEach((item) => {
+        item.index.sort((a,b) => item.value[item.index.indexOf(b)] - item.value[item.index.indexOf(a)])
+        
+        item.index.length === 1 ? answer.push(item.index[0]) : answer.push(item.index[0], item.index[1])
+    })
         
     return answer;
 }
