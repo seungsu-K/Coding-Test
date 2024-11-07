@@ -13,6 +13,8 @@ function solution(genres, plays) {
         arr.push(value)
     })
     
+    console.log(arr)
+    
     arr.sort((a,b) => b.total - a.total).forEach((item) => {
         item.index.sort((a,b) => item.value[item.index.indexOf(b)] - item.value[item.index.indexOf(a)])
         
