@@ -13,9 +13,9 @@ function solution(s){
         }
     })
 
-    console.log(stack)
-
-    if(stack.value[0] == -1 || stack.value[stack.value.length - 1] == 1 || stack.value.reduce((a,c) => a+c, 0) !== 0) return false
+    // if(stack.value[0] == -1 || stack.value[stack.value.length - 1] == 1 || stack.value.reduce((a,c) => a+c, 0) !== 0) return false
+    
+        if(stack.value[stack.value.length - 1] == 1 || stack.value.reduce((a,c) => a+c, 0) !== 0) return false
 
     return answer;
 }
