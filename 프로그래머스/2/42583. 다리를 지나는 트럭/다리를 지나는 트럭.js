@@ -1,21 +1,20 @@
 function solution(bridge_length, weight, truck_weights) {
     var answer = 0;
     
-    const pass = []
     const on = []
     const wait = [...truck_weights]
     
     while(on.length || wait.length) {
         answer++
         
-        if(answer > bridge_length) {
-            pass.push(on.shift())
+        if(answer == on[0]?.[0]) {
+            on.shift()
         }
         
-        if(on.reduce((a,c) => a+c,0) + wait[0] <= weight) {
-            on.push(wait.shift())
+        if(on.reduce((a,c) => a + c[1], 0) + wait[0] <= weight) {
+            on.push([answer + bridge_length, wait.shift()])
         } else {
-            if(wait.length) on.push(0)
+            if(on[0]) answer = on[0][0] - 1
         }
     }
     
