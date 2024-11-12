@@ -1,20 +1,23 @@
-function solution(priorities, location) {
-    var answer = 0;
-    
-    let a = []
-    let arrIndex = priorities.map((item, i) => [i, item])
 
-    for(let i = 0; i < priorities.length; i++) {
-        const sliced = [...arrIndex.slice(i)]
-        const max = Math.max(...sliced.map((item) => item[1]))
-        const index = sliced.filter((item) => item[1] === max)[0][0]
-        const slicedIndex = sliced.findIndex((item) => item[0] === index && item[1] === max)
-        
-        arrIndex = [...a, ...sliced.slice(slicedIndex), ...sliced.slice(0, slicedIndex)]
-        a.push([index, max])
+
+function solution(priorities, location) {
+    var arr = priorities.map((priority, index) => {
+        return {
+            index: index, priority: priority
+        };
+    });
+
+    var queue = [];
+
+    while(arr.length > 0) {
+        var firstEle = arr.shift();
+        var hasHighPriority = arr.some(ele => ele.priority > firstEle.priority);
+        if (hasHighPriority) {
+            arr.push(firstEle);
+        } else {
+            queue.push(firstEle);
+        }
     }
-    
-    answer = arrIndex.findIndex((item) => item[0] === location && item[1] === priorities[location]) + 1
-    
-    return answer;
+
+    return queue.findIndex(queueEle => queueEle.index === location) + 1;
 }
