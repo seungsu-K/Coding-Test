@@ -1,39 +1,19 @@
 function solution(k, dungeons) {
-    var answer = [];
-    
-    const permutations = (arr) => {
-        const results = [];
-        if (arr.length === 1) return arr.map((el) => [el]); 
+    let maxCount = 0;
 
-        arr.forEach((value, index, origin) => {
-        const rest = [...origin.slice(0, index), ...origin.slice(index+1)]
-        const permu = permutations(rest); 
-        const attached = permu.map((el) => [value, ...el]); 
+    const explore = (currentFatigue, visitedCount, visited) => {
+        maxCount = Math.max(maxCount, visitedCount);
 
-        results.push(...attached); 
-        });
-
-        return results
-    }
- 
-    const a = permutations(dungeons)
-    
-    a.forEach((value) => {
-        let count = 0;
-        let i = k
-        
-        value.forEach((value2, index) => {
-            if(i >= value2[0]) {
-                i = i - value2[1]
-                count++
+        for (let i = 0; i < dungeons.length; i++) {
+            if (!visited[i] && currentFatigue >= dungeons[i][0]) {
+                visited[i] = true;
+                explore(currentFatigue - dungeons[i][1], visitedCount + 1, visited);
+                visited[i] = false;
             }
-            
-            if(index === value.length -1) {
-                answer.push(count);
-                count = 0
         }
-        })
-    })
-    
-    return Math.max(...answer)
+    };
+
+    explore(k, 0, Array(dungeons.length).fill(false));
+
+    return maxCount;
 }
